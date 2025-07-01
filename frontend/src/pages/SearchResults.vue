@@ -32,7 +32,7 @@ onMounted(async () => {
   const searchType = route.query.type || 'all'
 
   try {
-    const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/movies/search`, {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/movies/search`, {
       params: {
         q: searchText,
         type: searchType

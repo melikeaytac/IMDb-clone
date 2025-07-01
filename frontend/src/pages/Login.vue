@@ -36,7 +36,7 @@ const route = useRoute()
 
 const handleLogin = async () => {
   try {
-    const res = await axios.post(`${import.meta.env.BACKEND_URL}/api/auth/login`, {
+    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
       email: email.value,
       password: password.value
     })
@@ -57,7 +57,7 @@ const handleLogin = async () => {
 }
 
 const googleLogin = () => {
-  window.location.href = `${import.meta.env.BACKEND_URL}/api/auth/google`
+  window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/auth/google`
 }
 
 onMounted(() => {

@@ -27,7 +27,7 @@ onMounted(async () => {
   if (!token) return router.push('/login')
 
   try {
-    const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/watchlist`, {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/watchlist`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     movies.value = res.data

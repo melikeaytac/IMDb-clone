@@ -34,7 +34,7 @@ onMounted(() => {
 
 onMounted(async () => {
   try {
-    const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/movies/popular`)
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/movies/popular`)
     movies.value = res.data
   } catch (err) {
     console.error('Popüler filmler alınamadı:', err)

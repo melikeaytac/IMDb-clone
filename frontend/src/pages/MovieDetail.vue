@@ -103,7 +103,7 @@ const embeddedTrailerUrl = computed(() => {
 
 const fetchMovie = async () => {
   try {
-    const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/movies/${route.params.id}`)
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/movies/${route.params.id}`)
     movie.value = res.data
   } catch (err) {
     console.error('Film çekilemedi:', err)
@@ -112,7 +112,7 @@ const fetchMovie = async () => {
 
 const fetchActors = async () => {
   try {
-    const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/movies/${route.params.id}/actors`)
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/movies/${route.params.id}/actors`)
     actors.value = res.data
   } catch (err) {
     console.error('Oyuncular çekilemedi:', err)
@@ -124,7 +124,7 @@ const fetchReviews = async () => {
   if (!movieId) return
 
   try {
-    const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/reviews/${movieId}`)
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/reviews/${movieId}`)
     reviews.value = res.data
     drawChart()
   } catch (err) {
@@ -177,7 +177,7 @@ const handleWatchlist = async () => {
 
   try {
     await axios.post(
-      `${import.meta.env.BACKEND_URL}/api/watchlist`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/watchlist`,
       { movie_id: movie.value.id },
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -192,7 +192,7 @@ const submitReview = async () => {
   if (!token) return router.push('/login')
 
   try {
-    await axios.post(`${import.meta.env.BACKEND_URL}/api/reviews`, {
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/reviews`, {
       movie_id: movie.value.id,
       rating: rating.value,
       comment: comment.value
