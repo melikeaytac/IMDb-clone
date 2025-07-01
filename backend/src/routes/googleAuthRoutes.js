@@ -12,7 +12,7 @@ router.get(
 
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login', session: false }),
+  passport.authenticate('google', { failureRedirect: `${process.env.FRONTEND_URL}/login`, session: false }),
   (req, res) => {
     const user = req.user
 
@@ -25,12 +25,11 @@ router.get(
         city: user.city,
         photo_url: user.photo_url,
       },
-      'secretkey',
+      process.env.JWT_SECRET,
       { expiresIn: '1d' }
     )
 
-    
-    res.redirect(`http://localhost:5173/login?token=${token}`)
+    res.redirect(`${process.env.FRONTEND_URL}/login?token=${token}`)
   }
 )
 

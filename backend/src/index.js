@@ -7,6 +7,13 @@ import passport from 'passport'
 dotenv.config()
 
 const app = express()
+app.use(
+  cors({
+    origin: "https://imdb-clone-frontend-j076.onrender.com",
+    credentials: true,
+  })
+)
+
 
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
