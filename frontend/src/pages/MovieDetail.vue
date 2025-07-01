@@ -177,7 +177,7 @@ const handleWatchlist = async () => {
 
   try {
     await axios.post(
-      '${import.meta.env.BACKEND_URL}/api/watchlist',
+      `${import.meta.env.BACKEND_URL}/api/watchlist`,
       { movie_id: movie.value.id },
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -192,7 +192,7 @@ const submitReview = async () => {
   if (!token) return router.push('/login')
 
   try {
-    await axios.post('${import.meta.env.BACKEND_URL}/api/reviews', {
+    await axios.post(`${import.meta.env.BACKEND_URL}/api/reviews`, {
       movie_id: movie.value.id,
       rating: rating.value,
       comment: comment.value
