@@ -30,7 +30,7 @@ onMounted(async () => {
 
   try {
     const decoded = jwt_decode(token)
-    const res = await axios.get(`http://localhost:3001/api/users/${decoded.id}`)
+    const res = await axios.get(`${import.meta.env.BACKEND_URL}/api/users/${decoded.id}`)
 
     name.value = res.data.name
     email.value = res.data.email

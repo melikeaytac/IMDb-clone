@@ -41,7 +41,7 @@ const handleFileChange = (e) => {
 
 const handleRegister = async () => {
   try {
-    await axios.post('http://localhost:3001/api/auth/register', {
+    await axios.post('${import.meta.env.BACKEND_URL}/api/auth/register', {
       name: name.value,
       email: email.value,
       password: password.value,

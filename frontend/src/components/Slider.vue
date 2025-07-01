@@ -50,7 +50,7 @@ const interval = ref(null)
 
 const fetchMovies = async () => {
   try {
-    const res = await axios.get('http://localhost:3001/api/movies/slider')
+    const res = await axios.get('${import.meta.env.BACKEND_URL}/api/movies/slider')
     movies.value = res.data
   } catch (err) {
     console.error('Slider veri çekme hatası:', err)
