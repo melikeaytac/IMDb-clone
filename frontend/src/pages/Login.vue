@@ -62,13 +62,16 @@ const googleLogin = () => {
 
 onMounted(() => {
   const token = route.query.token
+  const name = route.query.name
+  const email = route.query.email
+
   if (token) {
     try {
-      const decoded = jwt_decode(token)
       localStorage.setItem('token', token)
-      localStorage.setItem('user', JSON.stringify(decoded))
-      user.name = decoded.name
+      localStorage.setItem('user', JSON.stringify({ name, email }))
+      user.name = name
       user.isLoggedIn = true
+      router.replace({ query: {} })
       router.push('/')
     } catch (err) {
       console.error('Token çözümlemede hata:', err)

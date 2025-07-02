@@ -1,41 +1,33 @@
 import express from 'express'
 import passport from 'passport'
-import pkg from 'jsonwebtoken'
-const { sign } = pkg
+import jwt from 'jsonwebtoken'
 
 const router = express.Router()
 
-router.get(
-  '/google',
+// Google'a yönlendir
+router.get('/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 )
 
-router.get(
-  '/google/callback',
-  passport.authenticate('google', { failureRedirect: `${process.env.FRONTEND_URL}/login`, session: false }),
+// Callback geldiğinde buraya düşer
+router.get('/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: `${process.env.FRONTEND_URL}/login?error=auth_failed`,
+    session: false
+  }),
   (req, res) => {
     const user = req.user
 
-    const token = sign(
-      {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        country: user.country,
-        city: user.city,
-        photo_url: user.photo_url,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: '1d' }
-    )
+    const token = jwt.sign({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      photo_url: user.photo_url
+    }, process.env.JWT_SECRET, { expiresIn: '1d' })
 
-    res.redirect(`${process.env.FRONTEND_URL}/login?token=${token}`)
+    // Query string ile frontend'e yönlendir
+    res.redirect(`${process.env.FRONTEND_URL}/login?token=${token}&name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`)
   }
 )
-
-router.get('/test', (req, res) => {
-  res.send('Google Auth route çalışıyor 🎉')
-})
-
 
 export default router
