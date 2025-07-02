@@ -33,3 +33,7 @@ node src/index.js
 
 cd ../frontend
 npm run dev
+
+Demo Video : https://drive.google.com/file/d/1QHay5gesi77eThKopE9WGElquyOiT1Wa/view?usp=sharing
+
+Live Website: https://imdb-clonefrontend.onrender.com
