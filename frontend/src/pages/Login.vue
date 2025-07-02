@@ -62,34 +62,20 @@ const googleLogin = () => {
 
 onMounted(() => {
   const token = route.query.token
-  const name = route.query.name
-  const email = route.query.email
-
-  if (token && name && email) {
+  if (token) {
     try {
-      // Token'ı kaydet
+      const decoded = jwt_decode(token)
       localStorage.setItem('token', token)
-
-      // User bilgilerini sakla
-      const userData = { name: decodeURIComponent(name), email: decodeURIComponent(email) }
-      localStorage.setItem('user', JSON.stringify(userData))
-
-      // Global store güncelle
-      user.name = userData.name
+      localStorage.setItem('user', JSON.stringify(decoded))
+      user.name = decoded.name
       user.isLoggedIn = true
-
-      // URL'den query'leri temizle
-      router.replace({ path: route.path })
-
-      // Ana sayfaya yönlendir
       router.push('/')
     } catch (err) {
-      console.error('Google token/parsing hatası:', err)
+      console.error('Token çözümlemede hata:', err)
     }
   }
 })
 </script>
-
 
 <style scoped>
 .login {
