@@ -33,4 +33,9 @@ router.get(
   }
 )
 
+router.get('/test', (req, res) => {
+  res.send('Google Auth route çalışıyor 🎉')
+})
+
+
 export default router
