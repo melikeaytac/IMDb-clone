@@ -65,20 +65,31 @@ onMounted(() => {
   const name = route.query.name
   const email = route.query.email
 
-  if (token) {
+  if (token && name && email) {
     try {
+      // Token'ı kaydet
       localStorage.setItem('token', token)
-      localStorage.setItem('user', JSON.stringify({ name, email }))
-      user.name = name
+
+      // User bilgilerini sakla
+      const userData = { name: decodeURIComponent(name), email: decodeURIComponent(email) }
+      localStorage.setItem('user', JSON.stringify(userData))
+
+      // Global store güncelle
+      user.name = userData.name
       user.isLoggedIn = true
-      router.replace({ query: {} })
+
+      // URL'den query'leri temizle
+      router.replace({ path: route.path })
+
+      // Ana sayfaya yönlendir
       router.push('/')
     } catch (err) {
-      console.error('Token çözümlemede hata:', err)
+      console.error('Google token/parsing hatası:', err)
     }
   }
 })
 </script>
+
 
 <style scoped>
 .login {
